@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Function to handle errors
+error_handler() {
+    echo "Error occurred in script at line: $1"
+}
+
+# Trap errors and call the error_handler function with the line number where the error occurred
+trap 'error_handler $LINENO' ERR
+
+# Example commands
+echo "Step 1: This will run."
+false  # This command fails
+echo "Step 2: This will not run due to the error in the previous command."

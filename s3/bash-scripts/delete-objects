@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+echo "== delete objects script"
+
+####### Error Handler ######
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Function to handle errors
+error_handler() {
+    echo "Error occurred in script at line: $1"
+}
+
+# Trap errors and call the error_handler function with the line number where the error occurred
+trap 'error_handler $LINENO' ERR
+############################
+
+# Check for bucket name 
+if [ -z $1 ]; then
+    echo "Enter the name of the bucket to delete from eg. /delete-objects my-bucket-name"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+# Detect OS and set the correct TMP_DIR
+# Necessary to address variance of /tmp/delete_objects.json
+if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
+    TMP_DIR="/tmp"
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    TMP_DIR=$(cygpath -m "$TMP")  # Converts Windows path to Unix format
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+
+# Construct the full path to the JSON file
+DELETE_FILE_PATH="$TMP_DIR/delete_objects.json"
+
+echo $DELETE_FILE_PATH
+
+aws s3api list-objects-v2 \
+--bucket $BUCKET_NAME \
+--query Contents[].Key \
+| jq -n '{Objects: [inputs | .[] | {Key: .}]}' > $DELETE_FILE_PATH
+
+aws s3api delete-objects --bucket $BUCKET_NAME --delete file://"$DELETE_FILE_PATH"

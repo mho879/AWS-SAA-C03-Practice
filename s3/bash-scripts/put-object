@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+echo "== put object bash script"
+
+
+####### Error Handler ######
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Function to handle errors
+error_handler() {
+    echo "Error occurred in script at line: $1"
+}
+
+# Trap errors and call the error_handler function with the line number where the error occurred
+trap 'error_handler $LINENO' ERR
+############################
+
+# Check for first argument to use as bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+    exit 1
+fi
+
+# check for second argument to use as file name
+if [ -z "$2" ]; then
+    echo "There needs to be a filename eg. /bucket my-bucket-name my-filename"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+FILENAME=$2
+
+OBJECT_KEY=$(basename "$FILENAME")
+
+aws s3api put-object \
+--bucket $BUCKET_NAME \
+--body $FILENAME \
+--key $OBJECT_KEY
