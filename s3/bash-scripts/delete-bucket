@@ -11,7 +11,7 @@ fi
 
 BUCKET_NAME=$1
 
-echo "$BUCKET_NAME deleted"
-
 aws s3api delete-bucket \
 --bucket $BUCKET_NAME
+
+echo "$BUCKET_NAME deleted"

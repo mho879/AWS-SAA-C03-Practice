@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "== list bucket script"
+echo "== list 5 newest buckets script"
 
 # Passes the aws command to jq - a command-line JSON procsessor
 ## .Buckets accesses the Buckets field in the JSON output
@@ -9,3 +9,4 @@ echo "== list bucket script"
 ## .[] iterates over each item in the array of buckets
 ## .Name extracts the "NMame" field from each bucket object
 aws s3api list-buckets | jq -r '.Buckets | sort_by(.creationDate) | reverse | .[0:5] | .[] | .Name'
+echo ...
