@@ -17,3 +17,9 @@ aws s3api put-object --bucket example-metadata-mho --key hello.txt --body hello.
 ```sh
 aws s3api head-object --bucket example-metadata-mho --key hello.txt
 ```
+
+## Cleanup
+```sh
+aws s3 rm s3://example-metadata-mho/hello.txt
+aws s3 rb s3://example-metadata-mho
+```
