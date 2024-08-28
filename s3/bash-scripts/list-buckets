@@ -8,5 +8,5 @@ echo "== list 5 newest buckets script"
 ## limits number of buckets to show up to 5
 ## .[] iterates over each item in the array of buckets
 ## .Name extracts the "NMame" field from each bucket object
-aws s3api list-buckets | jq -r '.Buckets | sort_by(.creationDate) | reverse | .[0:5] | .[] | .Name'
-echo ...
+aws s3api list-buckets | jq -r '.Buckets | sort_by(.CreationDate) | reverse | .[0:5] | .[] | .Name'
+echo ... 
