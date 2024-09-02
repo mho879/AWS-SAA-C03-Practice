@@ -1,0 +1,20 @@
+{
+   "Statement": [
+      {
+         "Effect": "Allow",
+         "Principal": {
+            "AWS": "arn:aws:iam::253490789223:user/mho-2nd"
+         },
+         "Action": [
+            "s3:DeleteObject",
+            "s3:PutObject",
+            "s3:ListBucket",
+            "s3:GetObject"
+         ],
+         "Resource": [
+            "arn:aws:s3:::bucket-policy-mho",
+            "arn:aws:s3:::bucket-policy-mho/*"
+        ]
+      }
+   ]
+}
