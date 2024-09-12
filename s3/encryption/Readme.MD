@@ -36,7 +36,7 @@ aws s3api put-object \
 --sse-customer-key-md5 $MD5_value
 ```
 
-### Put Ojbect with SSE-C via aws S3
+### Put Object with SSE-C via aws S3
 ```sh
 openssl rand -out ssec.key 32
 aws s3 cp hello.txt s3://encryption-fun-mho/hello.txt \
