@@ -43,3 +43,12 @@ aws s3 cp hello.txt s3://encryption-fun-mho/hello.txt \
 --sse-c AES256 \
 --sse-c-key fileb://ssec.key
 ```
+
+## Cleanup
+```sh
+aws s3 rm s3://encryption-fun-mho/hello.txt
+aws s3 rb s3://encryption-fun-mho
+```
+
+
+![alt text](image.png)
