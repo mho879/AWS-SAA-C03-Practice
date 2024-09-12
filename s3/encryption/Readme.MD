@@ -49,6 +49,3 @@ aws s3 cp hello.txt s3://encryption-fun-mho/hello.txt \
 aws s3 rm s3://encryption-fun-mho/hello.txt
 aws s3 rb s3://encryption-fun-mho
 ```
-
-
-![alt text](image.png)
